@@ -11,7 +11,7 @@ describe SqlConnect do
 
   it 'should create a Wizard object for each row in wizard table' do
     sql_connect = SqlConnect.new
-    wizards = sql_connect.wizards
+    p wizards = sql_connect.wizards
     wizards.count.should eq(4)
   end
 end
