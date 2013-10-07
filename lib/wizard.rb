@@ -1,7 +1,10 @@
 class Wizard
   attr_accessor :name, :age, :spells, :health, :alive
 
-  def initialize
+  def initialize(name = "Bigby", age = 45, spells = {})
+    self.name = name
+    self.age = age
+    self.spells = spells
     self.alive = true
   end
 
