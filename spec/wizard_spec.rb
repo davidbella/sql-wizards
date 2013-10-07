@@ -35,14 +35,33 @@ describe Wizard,'#health' do
   end
 
   it 'should lose health when attacked' do
-    wizard.attacked(12)
-    wizard.health.should eq(33)
+    spell = wizard.spells[:spell0]
+
+    wizard.targeted(spell)
+    wizard.health.should eq(32)
+  end
+
+  it 'should gain health when healed' do
+    spell = {
+      :name => "Rejuvenate",
+      :amount => 6,
+      :effect => "heal"
+    }
+
+    wizard.health = 10
+    wizard.targeted(spell)
+    wizard.health.should eq(16)
   end
 
   it 'should die if the health is less than zero' do
-    wizard.attacked(20)
+    spell = wizard.spells[:spell0]
+
     wizard.is_alive?
-    wizard.attacked(37)
+
+    4.times do
+      wizard.targeted(spell)
+    end
+
     !wizard.is_alive?
     wizard.health.should be <= 0
   end
@@ -50,26 +69,33 @@ end
 
 describe Wizard,'#spells' do
   let(:wizard) {Wizard.new}
-  it 'should not have any spells at the start' do
-    wizard.spells.should eq({})
+  it 'should have the default spells at the start' do
+    wizard.spells.should eq(Wizard::DEFAULT_SPELLS)
   end
 
   it 'should have a hash of a spell if it has a spell' do
-    wizard.spells = {
-      :spell1 => {
-        :name => "Lightning",
-        :amount => 13,
-        :effect => "damage"
-      }
-    }
-
-    wizard.spells[:spell1].should be_a_kind_of(Hash)
+    wizard.spells[:spell0].should be_a_kind_of(Hash)
   end
 end
 
 describe Wizard,'#fight' do
-  it 'should be able to use a spell on another target'
+  let(:wizard) {Wizard.new}
+  it 'should be able to use a spell on another target' do
+    target = Wizard.new
+    spell = wizard.spells[:spell0]
 
-  it 'should be able to use a spell on itself'
+    wizard.cast(spell, target)
+
+    target.health.should eq(32)
+  end
+
+  it 'should be able to use a spell on itself' do
+    target = wizard
+    spell = wizard.spells[:spell0]
+
+    wizard.cast(spell, target)
+
+    wizard.health.should eq(32)
+  end
 end
 

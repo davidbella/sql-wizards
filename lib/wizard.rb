@@ -1,7 +1,15 @@
 class Wizard
   attr_accessor :name, :age, :spells, :health, :alive
 
-  def initialize(name = "Bigby", age = 45, spells = {})
+  DEFAULT_SPELLS = {
+    :spell0 => {
+      :name => "Lightning",
+      :amount => 13,
+      :effect => "damage"
+    }
+  }
+
+  def initialize(name = "Bigby", age = 45, spells = DEFAULT_SPELLS)
     self.name = name
     self.age = age
     self.spells = spells
@@ -21,8 +29,17 @@ class Wizard
     self.alive = false if self.health <= 0
   end
 
-  def attacked(amount)
-    self.health -= amount
+  def cast(spell, target)
+    target.targeted(spell)
+  end
+
+  def targeted(spell)
+    case spell[:effect]
+    when "damage"
+      self.health -= spell[:amount]
+    when "heal"
+      self.health += spell[:amount]
+    end
   end
 
   def is_alive?
