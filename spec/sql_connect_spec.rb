@@ -2,13 +2,16 @@ require_relative './spec_helper'
 require_relative '../lib/sql_connect'
 
 describe SqlConnect do
-  it 'should get some wizards from the database' do
+  it 'should return a list of Wizard objects' do
     sql_connect = SqlConnect.new
-    sql_connect.query_wizards.should_not eq(nil)
+    wizards = sql_connect.wizards
+    wizards.should be_a_kind_of(Array)
+    wizards.first.should be_a_kind_of(Wizard)
   end
 
-  it 'should get some spells from the database' do
+  it 'should create a Wizard object for each row in wizard table' do
     sql_connect = SqlConnect.new
-    sql_connect.query_spells.should_not eq(nil)
+    wizards = sql_connect.wizards
+    wizards.count.should eq(4)
   end
 end

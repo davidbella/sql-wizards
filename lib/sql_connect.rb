@@ -1,23 +1,30 @@
 require 'sqlite3'
 
 class SqlConnect
-  attr_accessor :wizards, :spells
+  attr_accessor :wizards
+
+  def initialize
+    @db = SQLite3::Database.new('db/wizards.db')
+  end
 
   def sql_get_wizards
-    db = SQLite3::Database.new('db/wizards.db')
-    db.execute('SELECT * FROM wizards;')
+    @db.execute(
+      'SELECT * FROM wizards;'
+    )
   end
 
-  def query_wizards
-    @wizards ||= sql_get_wizards
+  def sql_get_wizard_spells(wizard_id)
+    @db.execute(
+      "SELECT * FROM spells
+       WHERE spells.wizard_id = #{wizard_id}"
+    )
   end
 
-  def sql_get_spells
-    db = SQLite3::Database.new('db/wizards.db')
-    db.execute('SELECT * FROM spells;')
-  end
+  def wizards
+    sql_get_wizards.collect do |wizard|
+      spells = self.sql_get_wizard_spells(wizard[0])
 
-  def query_spells
-    @spells ||= sql_get_spells
+      Wizard.new(wizard[1], wizard[2], spells)
+    end
   end
 end
