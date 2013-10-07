@@ -17,14 +17,12 @@ class Wizard
     if health.is_a?(Integer) && health <= self.age
       @health = health
     end
+
+    self.alive = false if self.health <= 0
   end
 
   def attacked(amount)
     self.health -= amount
-
-    if self.health <= 0
-      self.alive = false
-    end
   end
 
   def is_alive?

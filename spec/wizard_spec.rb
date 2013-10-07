@@ -44,11 +44,32 @@ describe Wizard,'#health' do
     wizard.is_alive?
     wizard.attacked(37)
     !wizard.is_alive?
+    wizard.health.should be <= 0
   end
 end
 
-describe Wizard,'#fighting' do
+describe Wizard,'#spells' do
+  let(:wizard) {Wizard.new}
+  it 'should not have any spells at the start' do
+    wizard.spells.should eq({})
+  end
+
+  it 'should have a hash of a spell if it has a spell' do
+    wizard.spells = {
+      :spell1 => {
+        :name => "Lightning",
+        :amount => 13,
+        :effect => "damage"
+      }
+    }
+
+    wizard.spells[:spell1].should be_a_kind_of(Hash)
+  end
+end
+
+describe Wizard,'#fight' do
   it 'should be able to use a spell on another target'
 
   it 'should be able to use a spell on itself'
 end
+
