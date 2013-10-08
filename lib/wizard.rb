@@ -56,7 +56,13 @@ class Wizard
   end
 
   def cast(spell, target)
+    new_spell = spell.clone
+
+    
+
     target.targeted(spell)
+
+    "Cast a spell: #{new_spell[:name]}"
   end
 
   def targeted(spell)
