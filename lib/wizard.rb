@@ -1,5 +1,5 @@
 class Wizard
-  attr_accessor :name, :age, :spells, :health, :alive
+  attr_accessor :name, :age, :spells, :health, :gender, :alive
 
   DEFAULT_SPELLS = {
     :spell0 => {
@@ -13,6 +13,7 @@ class Wizard
     self.name = name
     self.age = age
     self.spells = spells
+    self.gender = ["her", "his"].sample
     self.alive = true
   end
 

@@ -11,6 +11,11 @@ describe Wizard do
     wizard.age.should eq(45)
   end
 
+  it 'should be a male or female wizard' do
+    wizard.gender.should be_a_kind_of(String)
+    wizard.gender.should eq(["her", "his"].sample)
+  end
+
   it 'should be alive' do
     wizard.is_alive?
   end
