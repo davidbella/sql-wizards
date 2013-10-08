@@ -9,6 +9,18 @@ class Wizard
     }
   }
 
+  FAIL_MSGS = [
+    [' trips on ', ' cloak and misses!'],
+    [' trips on ', ' staff and falls over while casting!'],
+    [' gets ', ' hair tangled while casting!'],
+    [' forgets ', ' spell incantation words!'],
+    [' drops ', ' staff during casting!'],
+    [' stumbles over ', ' robes!'],
+    [' gets ', ' hair caught in ', ' face!'],
+    [' accidentally casts the wrong spell!'],
+    [' forgot ', ' spellbook at home!']
+  ]
+
   def initialize(name = "Bigby", age = 45, spells = DEFAULT_SPELLS)
     self.name = name
     self.age = age
@@ -30,6 +42,7 @@ class Wizard
   end
 
   def cast(spell, target)
+    puts FAIL_MSGS.sample
     target.targeted(spell)
   end
 
