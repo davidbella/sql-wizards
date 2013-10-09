@@ -1,4 +1,3 @@
-require 'pp'
 require 'guard/notifier'
 require 'simplecov'
 SimpleCov.start do
