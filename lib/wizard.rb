@@ -10,7 +10,7 @@ class Wizard
   }
 
   FAIL_MSGS = [
-    [' gets ', ' hair tangled while casting!'],
+   [' gets ', ' hair tangled while casting!'],
     [' stumbles over ', ' robes!'],
     [' gets ', ' hair caught in ', ' face!'],
     [' was off by one!']
