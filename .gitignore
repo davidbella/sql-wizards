@@ -1,2 +1,4 @@
 .rspec
 db/*.db
+coverage/
+tmp/
