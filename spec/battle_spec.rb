@@ -22,3 +22,7 @@ end
 require 'json'
 require_relative './spec_helper'
 require_relative '../lib/battle'
+
+describe "Save" do
+  it 'should save the battle record to the database!'
+end
