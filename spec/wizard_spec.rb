@@ -13,7 +13,7 @@ describe Wizard do
 
   it 'should be a male or female wizard' do
     wizard.gender.should be_a_kind_of(String)
-    wizard.gender.should eq(["her", "his"].sample)
+    expect(["his", "her"]).to include(wizard.gender)
   end
 
   it 'should be alive' do
