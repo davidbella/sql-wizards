@@ -23,6 +23,10 @@ require 'json'
 require_relative './spec_helper'
 require_relative '../lib/battle'
 
+describe Battle,"#new" do
+  it 'should be instantiated with 2 wizards' 
+end
+
 describe "Save" do
   it 'should save the battle record to the database!'
 end
