@@ -23,6 +23,7 @@ require 'json'
 require_relative './spec_helper'
 require_relative '../lib/game'
 require_relative '../lib/wizard'
+require_relative '../lib/battle'
 
 describe Game,'#new' do
   let(:game) {Game.new}
@@ -86,8 +87,15 @@ end
 
 describe Game,"#battle" do
   let (:game) {Game.new}
-  it 'should allow you to create a new battle' do
-    game.battle = Battle.new
-    game.battle.should be_a_kind_of(Battle)
+  it 'should not allow you to create a new battle' do
+    result = game.start_battle
+    result.should eq(["📖  You must set a player and opponent before you can battle!"])
+    game.battle.should eq(nil)
+  end
+
+  it 'should allow you to create a new battle only if wizards are made' do
+    game.player = Wizard.new
+    game.opponent = Wizard.new
+    game.start_battle.should be_a_kind_of(Battle)
   end
 end
