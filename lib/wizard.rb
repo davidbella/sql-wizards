@@ -71,4 +71,8 @@ class Wizard
   def is_alive?
     self.alive
   end
+
+  def to_s
+    self.name
+  end
 end
