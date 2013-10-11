@@ -1,4 +1,5 @@
 require 'sqlite3'
+require_relative './wizard'
 
 class SqlConnect
   attr_accessor :wizards
