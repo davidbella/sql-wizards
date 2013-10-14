@@ -1,19 +1,18 @@
 require_relative '../env.rb'
 
 class Game
-  attr_accessor :player, :opponent, :icon, :prompt, :one_commands, :two_commands
+  attr_accessor :player, :opponent, :icon, :prompt, :commands
 
   def initialize
     @icon = "📖  "
     @prompt = "⤼  "
-    @one_commands = [:wizards, :battle, :help]
-    @two_commands = [:player, :opponent]
+    @commands = [:wizards, :battle, :help, :player, :opponent]
 
     sql_connect = SqlConnect.new
     @wizards = sql_connect.wizards
   end
 
-  def help
+  def help(caller = nil, args = nil)
     help_msg = []
     help_msg << "‼ ⟼   Player set to wizard #{self.player.name}!" if player
     help_msg << "‼ ⟼   Opponent set to wizard #{self.opponent.name}!" if opponent
@@ -21,13 +20,16 @@ class Game
     help_msg
   end
 
-  def wizards
+  def wizards(caller = nil, args = nil)
     @wizards.collect.with_index do |wizard, i|
       "#{i + 1} #{wizard}"
     end
   end
 
-  def player=(number)
+  def player=(caller = nil, args = nil)
+    return (["Please provide an argument of the wizard's number"]) if args == nil
+    
+    number = args[0]
     if number.to_i.between?(0, @wizards.count)
       @player = @wizards[number.to_i - 1]
       ["Player set to #{player.name}!"]
@@ -36,7 +38,10 @@ class Game
     end
   end
 
-  def opponent=(number)
+  def opponent=(caller = nil, args = nil)
+    return (["Please provide an argument of the wizard's number"]) if args == nil
+
+    number = args[0]
     if number.to_i.between?(0, @wizards.count)
       @opponent = @wizards[number.to_i - 1]
       ["Opponent set to #{opponent.name}!"]
@@ -45,11 +50,12 @@ class Game
     end
   end
 
-  def battle
+  def battle(caller, args = nil)
     if self.player == nil || self.opponent == nil
       self.help.unshift "You must set a player and opponent before you can battle!"
     else
-      # How to change this to set the CLI scene to battle?
+      caller.scene = Battle.new(player, opponent)
+      ["Entering a new battle between #{player.name} and #{opponent.name}"]
     end
   end
 end

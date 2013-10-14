@@ -31,7 +31,7 @@ class Wizard
     [' forgot ', ' spellbook at home!'],
     [' forgets ', ' spell incantation words!'],
     [' had ', ' staff pointing the wrong direction!'],
-    [' didn\'t implement ', ' her spell according to the spec!']
+    [' didn\'t implement ', ' spell according to the spec!']
   ]
 
   def initialize(name = "Bigby", age = 45, spells = DEFAULT_SPELLS)
@@ -57,6 +57,7 @@ class Wizard
 
   def cast(spell, target)
     target.targeted(spell)
+    [name + FAIL_MSGS.sample.inject {|msg, append| msg += gender + append}]
   end
 
   def targeted(spell)

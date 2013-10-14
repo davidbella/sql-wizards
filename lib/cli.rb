@@ -13,18 +13,18 @@ class CLI
     print scene.prompt
 
     while ((cmd = gets.strip.downcase) != 'exit') do
+      if cmd == ""
+        print scene.prompt
+        next
+      end
+
       cmd_parts = cmd.split(' ')
-      if cmd_parts.count == 1
-        if scene.one_commands.include?(cmd_parts[0].to_sym)
-          output(scene.send(cmd_parts[0].to_sym))
+
+      if scene.commands.include?(cmd_parts[0].to_sym)
+        if scene.respond_to?("#{cmd_parts[0].to_sym}=")
+          output(scene.send("#{cmd_parts[0].to_sym}=", self, cmd_parts[1..-1]))
         else
-          output(scene.help.unshift "I don't believe I understand")
-        end
-      elsif cmd_parts.count == 2
-        if scene.two_commands.include?(cmd_parts[0].to_sym)
-          output(scene.send("#{cmd_parts[0]}=".to_sym, cmd_parts[1]))
-        else
-          output(scene.help.unshift "I don't believe I understand")
+          output(scene.send(cmd_parts[0].to_sym, self, cmd_parts[1..-1]))
         end
       else
         output(scene.help.unshift "I don't believe I understand")
@@ -34,6 +34,8 @@ class CLI
   end
 
   def output(msgs)
+    return if !msgs.is_a?(Array)
+
     msgs.map! do |msg|
       msg = scene.icon + msg
       msg.chars.each do |w|

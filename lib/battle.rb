@@ -1,9 +1,12 @@
 class Battle
-  attr_accessor :battling, :player, :opponent
+  attr_accessor :battling, :icon, :prompt, :commands
 
   def initialize(player, opponent)
     @player = player
     @opponent = opponent
+    @icon = "🔨  "
+    @prompt = "⤼  "
+    @commands = [:help, :attack, :status]
     @battling = true
   end
 
@@ -11,22 +14,18 @@ class Battle
     self.battling
   end
 
-  def output(msgs)
-    msgs.map do |msg|
-      puts "🔨  " + msg
-    end
+  def help(caller = nil, args = nil)
+    help_msgs = []
+    help_msgs << "Cast your spells! Destroy your opponent!"
+    help_msgs << "Commands are 'attack'"
+    help_msgs
   end
 
-  def get_command
-    while (battling?)
-      output(["You are in a fight!"])
-      cmd = gets.strip.downcase
-      self.send(cmd)
-    end
+  def status(caller = nil, args = nil)
+
   end
 
-  def attack
-    player.cast(player.spells[:spell0], opponent)
-    p opponent
+  def attack(caller = nil, args = nil)
+    @player.cast(@player.spells[:spell0], @opponent)
   end
 end
