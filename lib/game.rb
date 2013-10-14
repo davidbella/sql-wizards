@@ -10,7 +10,12 @@ class Game
     else
       msgs.map! do |msg|
         msg = "📖  " + msg
-        puts msg
+        msg.chars.each do |w|
+          print w
+          sleep(0.02)
+        end
+        sleep(0.2)
+        puts
         msg
       end
       msgs
@@ -19,8 +24,8 @@ class Game
 
   def help
     help_msg = []
-    help_msg << "‼ ⟼   Player set to wizard #{self.player.name}!\n" if self.player
-    help_msg << "‼ ⟼   Opponent set to wizard #{self.opponent.name}!\n" if self.opponent
+    help_msg << "‼ ⟼   Player set to wizard #{self.player.name}!" if self.player
+    help_msg << "‼ ⟼   Opponent set to wizard #{self.opponent.name}!" if self.opponent
     help_msg << "⁈ ⟼   Commands are 'wizards', 'player', 'opponent', 'battle', 'help', and 'exit'"
     output(help_msg)
   end
