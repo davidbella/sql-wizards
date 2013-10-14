@@ -1,4 +1,4 @@
-require_relative './lib/game'
+require_relative './lib/cli'
 
-game = Game.new
-game.call
+cli = CLI.new
+cli.call
