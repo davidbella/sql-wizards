@@ -22,7 +22,10 @@ class Battle
   end
 
   def status(caller = nil, args = nil)
-
+    sts_msgs = []
+    sts_msgs << "Player #{@player.name} (#{@player.health}/#{@player.age})"
+    sts_msgs << "Opponent #{@opponent.name} (#{@opponent.health}/#{@opponent.age})"
+    sts_msgs
   end
 
   def attack(caller = nil, args = nil)

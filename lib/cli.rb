@@ -18,6 +18,14 @@ class CLI
         next
       end
 
+      if cmd == "qb"
+        self.scene = Battle.new(Wizard.new, Wizard.new)
+        output(self.scene.help)
+        output(self.scene.status)
+        print scene.prompt
+        next
+      end
+
       cmd_parts = cmd.split(' ')
 
       if scene.commands.include?(cmd_parts[0].to_sym)
