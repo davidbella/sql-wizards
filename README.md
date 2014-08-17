@@ -1,3 +1,8 @@
+### New Update
+I want to revisit this a little bit and clean it up. Looks like the code diverged from the tests pretty heavily so I'll look into fixing that up first, along with cleaning up the test suite in general, since I'm sure that it will need some updates.
+
+### Legacy Note from Last Year
+
 Inspired by the SQL lessons at Flatiron, I want to create a simple text based game based on _WIZARD BATTLES_.
 
 I'm going to build this fully test driven, since I have never done that before at all. I'm not going to bother with most of the database stuff though, I will handle creation stuff outside of Ruby. I may end up testing some of the SQL interactions but I don't know.
